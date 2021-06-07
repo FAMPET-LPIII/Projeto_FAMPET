@@ -2,6 +2,7 @@ package com.example.scvet.api.controller;
 
 import com.example.scvet.model.entity.Cliente;
 import com.example.scvet.service.ClienteService;
+import com.example.scvet.service.EspecieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 
 public class ClienteController {
+
+    private final ClienteService service;
     @GetMapping()
     public ResponseEntity get(){
         List<Cliente> clientes = service.getClientes();
