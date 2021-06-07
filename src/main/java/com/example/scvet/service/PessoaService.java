@@ -1,7 +1,9 @@
 package com.example.scvet.service;
 
+import com.example.scvet.api.dto.PessoaDTO;
 import com.example.scvet.model.entity.Pessoa;
 import com.example.scvet.model.repository.PessoaRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
