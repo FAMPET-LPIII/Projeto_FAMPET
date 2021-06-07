@@ -1,5 +1,5 @@
-package com.example.scvet.model.entity;
-
+//package com.example.scvet.model.entity;
+//
 //import lombok.AllArgsConstructor;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
@@ -13,19 +13,19 @@ package com.example.scvet.model.entity;
 //@Data
 //@NoArgsConstructor
 //@AllArgsConstructor
-
-public class Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPessoa;
-    private String nome;
-    private String email;
-    private String logradouro;
-    private int numero;
-    private String complemento;
-    private String bairro;
-    private String cidade;
-    private String uf;
-    private String cep;
-    private String telefone;
-}
+//
+//public class Pessoa {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long idPessoa;
+//    private String nome;
+//    private String email;
+//    private String logradouro;
+//    private int numero;
+//    private String complemento;
+//    private String bairro;
+//    private String cidade;
+//    private String uf;
+//    private String cep;
+//    private String telefone;
+//}
