@@ -24,4 +24,5 @@ public class Animal {
     private double peso;
     private String sexo;
 
+
 }
