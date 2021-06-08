@@ -1,7 +1,7 @@
 package com.example.scvet.api.controller;
 
 
-import com.example.scvet.model.entity.Especie;
+import com.example.scvet.api.dto.EspecieDTO;
 import com.example.scvet.service.EspecieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/especies")
@@ -22,13 +21,13 @@ public class EspecieController {
 
     @GetMapping()
     public ResponseEntity get(){
-        List<Especie> especies = service.getEspecies();
+        List<EspecieDTO> especies = service.getEspecies();
         return ResponseEntity.ok(especies);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        Optional<Especie> animal = service.getEspecieById(id);
-        return ResponseEntity.ok(animal);
+       EspecieDTO especie = service.getEspecieById(id);
+        return ResponseEntity.ok(especie);
     }
 }

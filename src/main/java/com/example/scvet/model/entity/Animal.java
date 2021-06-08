@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -23,6 +20,15 @@ public class Animal {
     private String nome;
     private double peso;
     private String sexo;
+
+    @ManyToOne
+    private Especie especie;
+
+    @ManyToOne
+    private Cliente cliente;
+
+
+
 
 
 }
