@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AgendamentoService {
@@ -18,11 +19,13 @@ public class AgendamentoService {
         this.repository = repository;
     }
 
-    public List<Agendamento> getAgendamentos(){
-        return repository.findAll();
+    public List<AgendamentoDTO> getAgendamentos(){
+        List<AgendamentoDTO> list = repository.findAll().stream().map(AgendamentoDTO::create).collect(Collectors.toList());
+        return list;
     }
 
-    public Optional<Agendamento> getAgendamentoById(Long id){
-        return repository.findById(id);
+    public AgendamentoDTO getAgendamentoById(Long id){
+        Optional<Agendamento> agendamento = repository.findById(id);
+        return agendamento.map(AgendamentoDTO::create).orElseThrow(() -> new RuntimeException("Agendamento não encontrado."));
     }
 }

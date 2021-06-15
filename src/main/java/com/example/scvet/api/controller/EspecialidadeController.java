@@ -1,7 +1,7 @@
 package com.example.scvet.api.controller;
 
 
-import com.example.scvet.model.entity.Especialidade;
+import com.example.scvet.api.dto.EspecialidadeDTO;
 import com.example.scvet.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +22,13 @@ public class EspecialidadeController {
 
     @GetMapping()
     public ResponseEntity get(){
-        List<Especialidade> especialidades = service.getEspecialidades();
+        List<EspecialidadeDTO> especialidades = service.getEspecialidades();
         return ResponseEntity.ok(especialidades);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        Optional<Especialidade> especialidade = service.getEspecialidadeById(id);
+        EspecialidadeDTO especialidade = service.getEspecialidadeById(id);
         return ResponseEntity.ok(especialidade);
     }
 }

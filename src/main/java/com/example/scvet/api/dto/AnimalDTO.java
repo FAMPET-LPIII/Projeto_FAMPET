@@ -32,8 +32,6 @@ public class AnimalDTO {
         assert dto.getNomeEspecie().equals(animal.getEspecie().getEspecie());
         return dto;
 
-
-
     }
 
 }

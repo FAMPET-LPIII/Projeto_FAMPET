@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -21,4 +18,12 @@ public class Agendamento {
     private String data;
     private String hora;
     private String situacao;
+
+    @ManyToOne
+    private Funcionario funcionario;
+
+    @ManyToOne
+    private Cliente cliente;
+
 }
+
