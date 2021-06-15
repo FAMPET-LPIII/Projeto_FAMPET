@@ -1,5 +1,6 @@
 package com.example.scvet.api.controller;
 
+import com.example.scvet.api.dto.ClienteDTO;
 import com.example.scvet.model.entity.Cliente;
 import com.example.scvet.service.ClienteService;
 import com.example.scvet.service.EspecieService;
@@ -22,13 +23,13 @@ public class ClienteController {
     private final ClienteService service;
     @GetMapping()
     public ResponseEntity get(){
-        List<Cliente> clientes = service.getClientes();
+        List<ClienteDTO> clientes = service.getClientes();
         return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        Optional<Cliente> cliente = service.getClienteById(id);
+        ClienteDTO cliente = service.getClienteById(id);
         return ResponseEntity.ok(cliente);
     }
 }
