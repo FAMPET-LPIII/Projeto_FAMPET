@@ -1,7 +1,6 @@
 package com.example.scvet.api.controller;
 
-
-import com.example.scvet.model.entity.Funcao;
+import com.example.scvet.api.dto.FuncaoDTO;
 import com.example.scvet.service.FuncaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +21,13 @@ public class FuncaoController {
 
     @GetMapping()
     public ResponseEntity get(){
-        List<Funcao> funcoes = service.getFuncoes();
+        List<FuncaoDTO> funcoes = service.getFuncoes();
         return ResponseEntity.ok(funcoes);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        Optional<Funcao> funcao = service.getFuncaoById(id);
+        FuncaoDTO funcao = service.getFuncaoById(id);
         return ResponseEntity.ok(funcao);
     }
 }
