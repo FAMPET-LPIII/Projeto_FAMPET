@@ -18,5 +18,5 @@ public class Especialidade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEspecialidade;
-    private String descricao;
+    private String nomeEspecialidade;
 }

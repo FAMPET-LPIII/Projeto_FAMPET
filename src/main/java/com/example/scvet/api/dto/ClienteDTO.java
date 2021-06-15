@@ -14,7 +14,8 @@ import org.modelmapper.ModelMapper;
 public class ClienteDTO {
 
     private Long idCliente;
-    private Pessoa pessoa;
+    private String nome;
+    private String email;
 
     public static ClienteDTO create(Cliente cliente){
 
