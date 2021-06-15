@@ -26,6 +26,6 @@ public class Cliente {
     private String cep;
     private String telefone;
 
-    @OneToMany
-    private Animal animal;
+//    @ManyToOne //mudar para Onetomany
+//    private Animal animal;
 }

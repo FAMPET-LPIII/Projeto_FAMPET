@@ -1,5 +1,6 @@
 package com.example.scvet.api.controller;
 
+import com.example.scvet.api.dto.FuncionarioDTO;
 import com.example.scvet.model.entity.Funcionario;
 import com.example.scvet.service.FuncionarioService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,13 @@ public class FuncionarioController {
 
     @GetMapping()
     public ResponseEntity get(){
-        List<Funcionario> funcionario = service.getFuncionarios();
+        List<FuncionarioDTO> funcionario = service.getFuncionarios();
         return ResponseEntity.ok(funcionario);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        Optional<Funcionario> funcionario = service.getFuncionarioById(id);
+        FuncionarioDTO funcionario = service.getFuncionarioById(id);
         return ResponseEntity.ok(funcionario);
     }
 }

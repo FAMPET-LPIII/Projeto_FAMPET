@@ -26,5 +26,12 @@ public class Funcionario{
     private String uf;
     private String cep;
     private String telefone;
+<<<<<<< HEAD
 
+=======
+    @ManyToOne
+    private Funcao funcao;
+    @ManyToOne
+    private Especialidade especialidade;
+>>>>>>> parent of efe929a (Revert "Falci_Cliente_Funcionario")
 }
