@@ -1,13 +1,13 @@
 package com.example.scvet.service;
 
-import com.example.scvet.api.dto.FuncionarioDTO;
+import com.example.scvet.api.dto.ClienteDTO;
 import com.example.scvet.model.entity.Funcionario;
 import com.example.scvet.model.repository.FuncionarioRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioService {
@@ -17,13 +17,11 @@ public class FuncionarioService {
         this.repository = repository;
     }
 
-    public List<FuncionarioDTO> getFuncionarios(){
-        List<FuncionarioDTO> list = repository.findAll().stream().map(FuncionarioDTO::create).collect(Collectors.toList());
-        return list;
+    public List<Funcionario> getFuncionarios(){
+        return repository.findAll();
     }
 
-    public FuncionarioDTO getFuncionarioById(Long id){
-        Optional<Funcionario> funcionario = repository.findById(id);
-        return funcionario.map(FuncionarioDTO::create).orElseThrow(() -> new RuntimeException("Funcionario não encontrado!"));
+    public Optional<Funcionario> getFuncionarioById(Long id){
+        return repository.findById(id);
     }
 }

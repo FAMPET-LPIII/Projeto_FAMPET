@@ -25,14 +25,13 @@ public class ClienteDTO {
     private String telefone;
     private Long idAnimal;
     private String nomeAnimal;
-    //Ver necessidade de lista
 
     public static ClienteDTO create(Cliente cliente){
 
         ModelMapper modelMapper = new ModelMapper();
         ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);
-//        assert dto.getIdAnimal().equals(cliente.getAnimal().getIdAnimal());
-//        assert dto.getNomeAnimal().equals(cliente.getAnimal().getNome());
+        assert dto.getIdAnimal().equals(cliente.getAnimal().getIdAnimal());
+        assert dto.getIdAnimal().equals(cliente.getAnimal().getNome());
         return dto;
     }
 
