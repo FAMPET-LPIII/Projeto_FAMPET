@@ -13,11 +13,11 @@ import org.modelmapper.ModelMapper;
 public class AnimalDTO {
 
     private Long idAnimal;
-    private String nome;
+    private String nomeAnimal;
     private double peso;
     private String sexo;
     private Long idCliente;
-    private String nomeDono;
+    private String nomeCliente;
     private Long idEspecie;
     private String nomeEspecie;
 
@@ -27,7 +27,7 @@ public class AnimalDTO {
         ModelMapper modelMapper = new ModelMapper();
         AnimalDTO dto = modelMapper.map(animal, AnimalDTO.class);
         assert dto.getIdCliente().equals(animal.getCliente().getIdCliente());
-        assert dto.getNomeDono().equals(animal.getCliente().getNome());
+        assert dto.getNomeCliente().equals(animal.getCliente().getNome());
         assert dto.getIdEspecie().equals(animal.getEspecie().getIdEspecie());
         assert dto.getNomeEspecie().equals(animal.getEspecie().getNomeEspecie());
         return dto;
