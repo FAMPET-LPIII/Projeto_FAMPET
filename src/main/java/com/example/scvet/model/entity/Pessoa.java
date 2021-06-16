@@ -15,9 +15,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 
 public abstract class Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPessoa;
+
     private String nome;
     private String email;
     private String logradouro;

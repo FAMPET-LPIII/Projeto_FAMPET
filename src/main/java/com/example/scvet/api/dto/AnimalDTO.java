@@ -29,7 +29,7 @@ public class AnimalDTO {
         assert dto.getIdCliente().equals(animal.getCliente().getIdCliente());
         assert dto.getNomeDono().equals(animal.getCliente().getNome());
         assert dto.getIdEspecie().equals(animal.getEspecie().getIdEspecie());
-        assert dto.getNomeEspecie().equals(animal.getEspecie().getEspecie());
+        assert dto.getNomeEspecie().equals(animal.getEspecie().getNomeEspecie());
         return dto;
 
     }
