@@ -20,6 +20,6 @@ public class  Especie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEspecie;
-    private String NomeEspecie;
+    private String nomeEspecie;
 
 }

@@ -13,7 +13,7 @@ import org.modelmapper.ModelMapper;
 public class EspecieDTO {
 
     private Long idEspecie;
-    private String especie;
+    private String nomeEspecie;
 
     public static EspecieDTO create(Especie especie){
         ModelMapper modelMapper = new ModelMapper();
