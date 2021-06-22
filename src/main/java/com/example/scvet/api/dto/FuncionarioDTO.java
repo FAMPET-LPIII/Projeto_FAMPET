@@ -25,7 +25,7 @@ public class FuncionarioDTO {
     private String cep;
     private String telefone;
     private Long idEspecialidade;
-    private String nomeEspecialidade;
+    private String descricaoEspecialidade;
     private Long idFuncao;
     private String descricaoFuncao;
 
@@ -33,7 +33,7 @@ public class FuncionarioDTO {
         ModelMapper modelMapper = new ModelMapper();
         FuncionarioDTO dto = modelMapper.map(funcionario, FuncionarioDTO.class);
         assert dto.getIdEspecialidade().equals(funcionario.getEspecialidade().getIdEspecialidade());
-        assert dto.getNomeEspecialidade().equals(funcionario.getEspecialidade().getNomeEspecialidade());
+        assert dto.getDescricaoEspecialidade().equals(funcionario.getEspecialidade().getDescricao());
         assert dto.getIdFuncao().equals(funcionario.getFuncao().getIdFuncao());
         assert dto.getDescricaoFuncao().equals(funcionario.getFuncao().getDescricao());
 
