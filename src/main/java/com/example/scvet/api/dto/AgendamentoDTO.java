@@ -17,7 +17,7 @@ public class AgendamentoDTO {
     private String hora;
     private String situacao;
 
-    private Long idAtendente;
+    private Long idFuncionario;
     private String nomeFuncionario;
 
     private Long idCliente;
@@ -28,7 +28,7 @@ public class AgendamentoDTO {
         ModelMapper modelMapper = new ModelMapper();
         AgendamentoDTO dto = modelMapper.map(agendamento, AgendamentoDTO.class);
 
-        assert dto.getIdAtendente().equals(agendamento.getFuncionario().getIdFuncionario());
+        assert dto.getIdFuncionario().equals(agendamento.getFuncionario().getIdFuncionario());
         assert dto.getNomeFuncionario().equals(agendamento.getFuncionario().getNome());
         assert dto.getIdCliente().equals(agendamento.getCliente().getIdCliente());
         assert dto.getNomeCliente().equals(agendamento.getCliente().getNome());

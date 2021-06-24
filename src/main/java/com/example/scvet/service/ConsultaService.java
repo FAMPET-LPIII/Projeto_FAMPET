@@ -18,14 +18,12 @@ public class ConsultaService {
         this.repository = repository;
     }
 
-    public List<ConsultaDTO> getConsultas(){
-        List<ConsultaDTO> list = repository.findAll().stream().map(ConsultaDTO::create).collect(Collectors.toList());
-        return list;
+    public List<Consulta> getConsultas(){
+        return repository.findAll();
     }
 
-    public ConsultaDTO getConsultaById(Long id){
-        Optional<Consulta> consulta = repository.findById(id);
-        return consulta.map(ConsultaDTO::create).orElseThrow(() -> new RuntimeException("Consulta não encontrada!"));
+    public Optional<Consulta> getConsultaById(Long id){
+        return  repository.findById(id);
     }
 
 }
