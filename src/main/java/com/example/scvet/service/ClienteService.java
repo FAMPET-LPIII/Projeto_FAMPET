@@ -18,16 +18,15 @@ public class ClienteService {
     private ClienteRepository repository;
 
     public ClienteService(ClienteRepository repository){
+
         this.repository = repository;
     }
 
-    public List<ClienteDTO> getClientes(){
-        List<ClienteDTO> list = repository.findAll().stream().map(ClienteDTO::create).collect(Collectors.toList());
-        return list;
+    public List<Cliente> getClientes(){
+        return repository.findAll();
     }
 
-    public ClienteDTO getClienteById(Long id){
-        Optional<Cliente> cliente = repository.findById(id);
-        return cliente.map(ClienteDTO::create).orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+    public Optional<Cliente> getClienteById(Long id){
+        return repository.findById(id);
     }
 }
