@@ -21,14 +21,12 @@ public class EspecialidadeService {
         this.repository = repository;
     }
 
-    public List<EspecialidadeDTO> getEspecialidades(){
-        List<EspecialidadeDTO> list = repository.findAll().stream().map(EspecialidadeDTO::create).collect(Collectors.toList());
-        return list;
+    public List<Especialidade> getEspecialidades(){
+        return repository.findAll();
     }
 
-    public EspecialidadeDTO getEspecialidadeById(Long id){
-        Optional<Especialidade> especialidade = repository.findById(id);
-        return especialidade.map(EspecialidadeDTO::create).orElseThrow(() -> new RuntimeException("Especialidade não encontrada."));
+    public Optional<Especialidade> getEspecialidadeById(Long id){
+        return repository.findById(id);
     }
 
 }

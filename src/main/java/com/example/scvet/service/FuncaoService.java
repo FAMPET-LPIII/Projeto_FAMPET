@@ -20,13 +20,11 @@ public class FuncaoService {
         this.repository = repository;
     }
 
-    public List<FuncaoDTO> getFuncoes(){
-        List<FuncaoDTO> list = repository.findAll().stream().map(FuncaoDTO::create).collect(Collectors.toList());
-        return list;
+    public List<Funcao> getFuncoes(){
+        return repository.findAll();
     }
 
-    public FuncaoDTO getFuncaoById(Long id){
-        Optional<Funcao> funcao = repository.findById(id);
-        return funcao.map(FuncaoDTO::create).orElseThrow(() -> new RuntimeException("Funcão não encontrada."));
+    public Optional<Funcao> getFuncaoById(Long id){
+        return repository.findById(id);
     }
 }
