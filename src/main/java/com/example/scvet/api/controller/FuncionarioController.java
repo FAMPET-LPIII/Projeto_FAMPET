@@ -4,6 +4,7 @@ import com.example.scvet.api.dto.FuncionarioDTO;
 import com.example.scvet.model.entity.Funcionario;
 import com.example.scvet.service.FuncionarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,23 +13,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/funcionarios")
 @RequiredArgsConstructor
 
 public class FuncionarioController {
+
     private final FuncionarioService service;
 
     @GetMapping()
     public ResponseEntity get(){
-        List<FuncionarioDTO> funcionario = service.getFuncionarios();
-        return ResponseEntity.ok(funcionario);
+        List<Funcionario> funcionario = service.getFuncionarios();
+        return ResponseEntity.ok(funcionario.stream().map(FuncionarioDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        FuncionarioDTO funcionario = service.getFuncionarioById(id);
-        return ResponseEntity.ok(funcionario);
+        Optional<Funcionario> funcionario = service.getFuncionarioById(id);
+
+        if(!funcionario.isPresent()){
+            return new ResponseEntity("Funcionario não encontrado", HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(funcionario.map(FuncionarioDTO::create));
     }
 }

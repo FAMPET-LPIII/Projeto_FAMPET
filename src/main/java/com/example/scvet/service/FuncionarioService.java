@@ -13,17 +13,15 @@ import java.util.stream.Collectors;
 public class FuncionarioService {
     private FuncionarioRepository repository;
 
-    public FuncionarioService(FuncionarioRepository repository){
+    public FuncionarioService(FuncionarioRepository repository) {
         this.repository = repository;
     }
 
-    public List<FuncionarioDTO> getFuncionarios(){
-        List<FuncionarioDTO> list = repository.findAll().stream().map(FuncionarioDTO::create).collect(Collectors.toList());
-        return list;
+    public List<Funcionario> getFuncionarios() {
+        return repository.findAll();
     }
 
-    public FuncionarioDTO getFuncionarioById(Long id){
-        Optional<Funcionario> funcionario = repository.findById(id);
-        return funcionario.map(FuncionarioDTO::create).orElseThrow(() -> new RuntimeException("Funcionario não encontrado!"));
+    public Optional<Funcionario> getFuncionarioById(Long id) {
+        return repository.findById(id);
     }
 }
