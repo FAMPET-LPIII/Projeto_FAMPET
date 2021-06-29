@@ -1,15 +1,16 @@
 package com.example.scvet.api.controller;
 
+import com.example.scvet.api.dto.AnimalDTO;
 import com.example.scvet.api.dto.EspecieDTO;
+import com.example.scvet.exception.RegraNegocioException;
+import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.service.EspecieService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,5 +37,20 @@ public class EspecieController {
         }
 
         return ResponseEntity.ok(especie.map(EspecieDTO::create));
+    }
+    @PostMapping()
+    public ResponseEntity post(EspecieDTO dto){
+        try {
+            Especie especie = converter(dto);
+            especie = service.salvar(especie);
+            return new ResponseEntity(especie, HttpStatus.CREATED);
+        }catch (RegraNegocioException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    public Especie converter(EspecieDTO dto){
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(dto, Especie.class);
     }
 }

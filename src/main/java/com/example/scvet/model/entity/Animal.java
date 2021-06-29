@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,8 +28,8 @@ public class Animal {
     @ManyToOne
     private Cliente cliente;
 
-
-
+    @OneToMany (mappedBy = "animal")
+    private List<Consulta> consultas;
 
 
 }

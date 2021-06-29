@@ -1,9 +1,11 @@
 package com.example.scvet.service;
 
-import com.example.scvet.api.dto.AnimalDTO;
+import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,4 +27,27 @@ public class AnimalService {
      return  repository.findById(id);
     }
 
+    @Transactional
+    public Animal salvar(Animal animal){
+        validar(animal);
+        return repository.save(animal);
+    }
+
+    public void validar(Animal animal){
+        if (animal.getNome() == null || animal.getNome().trim().equals("")){
+            throw new RegraNegocioException("Nome invalido");
+        }
+        if (animal.getSexo() == null || animal.getSexo().trim().equals("")){
+            throw new RegraNegocioException("Sexo invalido");
+        }
+        if (animal.getPeso() == 0){
+            throw new RegraNegocioException("Peso invalido");
+        }
+        if(animal.getEspecie() == null || animal.getEspecie().getIdEspecie()==null || animal.getEspecie().getIdEspecie() ==0){
+            throw new RegraNegocioException("Especie invalida");
+        }
+        if (animal.getCliente() == null || animal.getCliente().getIdCliente()== null || animal.getCliente().getIdCliente()==0){
+            throw new RegraNegocioException("Cliente invalido");
+        }
+    }
 }
