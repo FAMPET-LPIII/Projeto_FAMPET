@@ -45,9 +45,9 @@ public class ConsultaService {
             throw new RegraNegocioException("Diagnostico invalido");
         }
 
-        if (consulta.getAnimal() == null || consulta.getAnimal().getIdAnimal() == null || consulta.getAnimal().getIdAnimal() == 0) {
-            throw new RegraNegocioException("Animal invalido");
-        }
+//        if (consulta.getAnimal() == null || consulta.getAnimal().getIdAnimal() == null || consulta.getAnimal().getIdAnimal() == 0) {
+//            throw new RegraNegocioException("Animal invalido");
+//        }
         if (consulta.getMedico() == null || consulta.getMedico().getIdFuncionario() == null || consulta.getMedico().getIdFuncionario() == 0) {
             throw new RegraNegocioException("Medico invalido");
         }
