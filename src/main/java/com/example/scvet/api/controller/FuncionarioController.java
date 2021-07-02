@@ -1,15 +1,14 @@
 package com.example.scvet.api.controller;
 
 import com.example.scvet.api.dto.FuncionarioDTO;
-import com.example.scvet.model.entity.Funcionario;
-import com.example.scvet.service.FuncionarioService;
+import com.example.scvet.exception.RegraNegocioException;
+import com.example.scvet.model.entity.*;
+import com.example.scvet.service.*;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +21,9 @@ import java.util.stream.Collectors;
 public class FuncionarioController {
 
     private final FuncionarioService service;
+    private final EspecialidadeService especialidadeService;
+    private final FuncaoService funcaoService;
+
 
     @GetMapping()
     public ResponseEntity get(){
@@ -38,5 +40,40 @@ public class FuncionarioController {
         }
 
         return ResponseEntity.ok(funcionario.map(FuncionarioDTO::create));
+    }
+    @PostMapping()
+    public ResponseEntity post(FuncionarioDTO dto){
+        try {
+            Funcionario funcionario = converter(dto);
+            funcionario = service.salvar(funcionario);
+            return new ResponseEntity(funcionario, HttpStatus.CREATED);
+        }catch (RegraNegocioException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    public Funcionario converter(FuncionarioDTO dto){
+        ModelMapper modelMapper = new ModelMapper();
+        Funcionario funcionario= modelMapper.map(dto, Funcionario.class);
+        if (dto.getIdEspecialidade() != null){
+            Optional<Especialidade> especialidade = especialidadeService.getEspecialidadeById(dto.getIdEspecialidade());
+            if(!especialidade.isPresent()){
+                funcionario.setEspecialidade(null);
+            }else{
+                funcionario.setEspecialidade(especialidade.get());
+
+            }
+        }
+
+        if (dto.getIdFuncao() != null){
+            Optional<Funcao> funcao = funcaoService.getFuncaoById(dto.getIdFuncao());
+            if(!funcao.isPresent()){
+                funcionario.setFuncao(null);
+            }else{
+                funcionario.setFuncao(funcao.get());
+
+            }
+        }
+        return funcionario;
     }
 }

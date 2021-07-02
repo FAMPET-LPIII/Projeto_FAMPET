@@ -16,9 +16,16 @@ public class ClienteDTO {
     private Long idCliente;
     private String nome;
     private String email;
+    private String logradouro;
+    private String numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
+    private String telefone;
 
     public static ClienteDTO create(Cliente cliente){
-
         ModelMapper modelMapper = new ModelMapper();
         ClienteDTO dto = modelMapper.map(cliente, ClienteDTO.class);
         return dto;
