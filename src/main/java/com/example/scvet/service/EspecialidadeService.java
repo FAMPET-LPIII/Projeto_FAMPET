@@ -1,16 +1,13 @@
 package com.example.scvet.service;
 
-import com.example.scvet.api.dto.AgendamentoDTO;
-import com.example.scvet.api.dto.EspecialidadeDTO;
-import com.example.scvet.model.entity.Agendamento;
+import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Especialidade;
 import com.example.scvet.model.repository.EspecialidadeRepository;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EspecialidadeService {
@@ -29,4 +26,15 @@ public class EspecialidadeService {
         return repository.findById(id);
     }
 
+    @Transactional
+    public Especialidade salvar(Especialidade especialidade){
+        validar(especialidade);
+        return  repository.save(especialidade);
+    }
+
+    public void validar (Especialidade especialidade){
+        if (especialidade.getDescricao() == null || especialidade.getDescricao().trim().equals("")){
+            throw new RegraNegocioException("Descrição de especialidade inválida.");
+        }
+    }
 }
