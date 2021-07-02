@@ -1,7 +1,6 @@
 package com.example.scvet.service;
 
 import com.example.scvet.exception.RegraNegocioException;
-import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.model.repository.EspecieRepository;
 import org.springframework.stereotype.Service;
