@@ -30,6 +30,4 @@ public class Animal {
 
     @OneToMany (mappedBy = "animal")
     private List<Consulta> consultas;
-
-
 }

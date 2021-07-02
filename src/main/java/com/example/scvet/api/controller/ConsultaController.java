@@ -47,7 +47,11 @@ public class ConsultaController {
         try {
             Consulta consulta = converter(dto);
             consulta = service.salvar(consulta);
-            return new ResponseEntity(consulta, HttpStatus.CREATED);
+
+            //Mudei para nao entrar em loop
+            //return new ResponseEntity(consulta, HttpStatus.CREATED);
+
+            return new ResponseEntity(get(consulta.getIdConsulta()), HttpStatus.CREATED);
         }catch (RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

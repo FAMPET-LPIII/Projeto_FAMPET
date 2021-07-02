@@ -43,7 +43,9 @@ public class EspecieController {
         try {
             Especie especie = converter(dto);
             especie = service.salvar(especie);
+            //Não mudei só tem 2 atributos
             return new ResponseEntity(especie, HttpStatus.CREATED);
+
         }catch (RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

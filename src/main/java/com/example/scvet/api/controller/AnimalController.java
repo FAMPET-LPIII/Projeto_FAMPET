@@ -45,7 +45,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}/consultas")
-    public ResponseEntity getConsultas(@PathVariable("id") Long id){
+    public ResponseEntity getListConsultas(@PathVariable("id") Long id){
         Optional<Animal> animal = service.getAnimalById(id);
         if(!animal.isPresent()){
             return new ResponseEntity("Animal não encontrado", HttpStatus.NOT_FOUND);
@@ -60,7 +60,9 @@ public class AnimalController {
         try {
             Animal animal = converter(dto);
             animal = service.salvar(animal);
-            return new ResponseEntity(animal, HttpStatus.CREATED);
+            //Mudei para nao entrar em loop
+            //return new ResponseEntity(animal, HttpStatus.CREATED);
+            return new ResponseEntity(get(animal.getIdAnimal()), HttpStatus.CREATED);
         }catch (RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -68,7 +70,7 @@ public class AnimalController {
 
     public Animal converter(AnimalDTO dto){
         ModelMapper modelMapper = new ModelMapper();
-        Animal animal= modelMapper.map(dto, Animal.class);
+        Animal animal = modelMapper.map(dto, Animal.class);
         if (dto.getIdEspecie() != null){
             Optional<Especie> especie = especieService.getEspecieById(dto.getIdEspecie());
             if(!especie.isPresent()){
