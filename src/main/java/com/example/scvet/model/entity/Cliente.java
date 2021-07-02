@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,4 +17,6 @@ public class Cliente extends Pessoa{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
 
+    @OneToMany (mappedBy = "cliente")
+    private List<Animal> animais;
 }

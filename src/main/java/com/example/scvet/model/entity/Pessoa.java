@@ -15,11 +15,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 
 public abstract class Pessoa {
-
     private String nome;
     private String email;
     private String logradouro;
-    private int numero;
+    private String numero;
     private String complemento;
     private String bairro;
     private String cidade;
