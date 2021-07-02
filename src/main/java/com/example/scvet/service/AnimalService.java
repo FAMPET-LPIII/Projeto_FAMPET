@@ -4,8 +4,8 @@ import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class AnimalService {
      return  repository.findById(id);
     }
 
-    @Transactional
+   @Transactional
     public Animal salvar(Animal animal){
         validar(animal);
         return repository.save(animal);

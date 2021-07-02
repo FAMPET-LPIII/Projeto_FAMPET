@@ -4,8 +4,8 @@ import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.model.repository.EspecieRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Service
