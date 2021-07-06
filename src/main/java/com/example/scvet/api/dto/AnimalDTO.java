@@ -25,9 +25,7 @@ public class AnimalDTO {
         ModelMapper modelMapper = new ModelMapper();
         AnimalDTO dto = modelMapper.map(animal, AnimalDTO.class);
         assert dto.getIdCliente().equals(animal.getCliente().getIdCliente());
-//      assert dto.getNomeCliente().equals(animal.getCliente().getNome());
         assert dto.getIdEspecie().equals(animal.getEspecie().getIdEspecie());
-//      assert dto.getNomeEspecie().equals(animal.getEspecie().getNomeEspecie());
         return dto;
 
     }

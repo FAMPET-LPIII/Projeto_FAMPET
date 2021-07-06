@@ -1,9 +1,7 @@
 package com.example.scvet.api.controller;
 
-import com.example.scvet.api.dto.ConsultaDTO;
 import com.example.scvet.api.dto.EspecieDTO;
 import com.example.scvet.exception.RegraNegocioException;
-import com.example.scvet.model.entity.Consulta;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.service.EspecieService;
 import lombok.RequiredArgsConstructor;

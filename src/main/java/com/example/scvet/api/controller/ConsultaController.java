@@ -1,7 +1,5 @@
 package com.example.scvet.api.controller;
 
-
-import com.example.scvet.api.dto.AnimalDTO;
 import com.example.scvet.api.dto.ConsultaDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.*;
