@@ -5,9 +5,11 @@ import com.example.scvet.api.dto.ConsultaDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Cliente;
+import com.example.scvet.model.entity.Consulta;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.service.AnimalService;
 import com.example.scvet.service.ClienteService;
+import com.example.scvet.service.ConsultaService;
 import com.example.scvet.service.EspecieService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,6 +29,7 @@ public class AnimalController {
     private final AnimalService service;
     private final EspecieService especieService;
     private final ClienteService clienteService;
+    private final ConsultaService consultaService;
 
     @GetMapping()
     public ResponseEntity get(){
@@ -50,8 +53,9 @@ public class AnimalController {
         if(!animal.isPresent()){
             return new ResponseEntity("Animal não encontrado", HttpStatus.NOT_FOUND);
         }
+        List<Consulta> consultas = consultaService.getConsultaByAnimal(animal);
+        return ResponseEntity.ok(consultas.stream().map(ConsultaDTO::create).collect(Collectors.toList()));
 
-        return ResponseEntity.ok(animal.get().getConsultas().stream().map(ConsultaDTO::create).collect(Collectors.toList()));
 
     }
 
@@ -60,14 +64,28 @@ public class AnimalController {
         try {
             Animal animal = converter(dto);
             animal = service.salvar(animal);
-            //Mudei para nao entrar em loop
-            //return new ResponseEntity(animal, HttpStatus.CREATED);
-            return new ResponseEntity(get(animal.getIdAnimal()), HttpStatus.CREATED);
+
+            return new ResponseEntity(animal, HttpStatus.CREATED);
+
         }catch (RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, AnimalDTO dto) {
+        if (!service.getAnimalById(id).isPresent()) {
+            return new ResponseEntity("Animal não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+           Animal animal = converter(dto);
+            animal.setIdAnimal(id);
+            service.salvar(animal);
+            return ResponseEntity.ok(animal);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     public Animal converter(AnimalDTO dto){
         ModelMapper modelMapper = new ModelMapper();
         Animal animal = modelMapper.map(dto, Animal.class);

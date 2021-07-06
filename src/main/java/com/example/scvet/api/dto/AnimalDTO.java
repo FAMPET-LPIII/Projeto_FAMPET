@@ -17,9 +17,7 @@ public class AnimalDTO {
     private double peso;
     private String sexo;
     private Long idCliente;
-//    private String nomeCliente;
     private Long idEspecie;
-//    private String nomeEspecie;
 
 
     public static AnimalDTO create(Animal animal){

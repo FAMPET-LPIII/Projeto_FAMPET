@@ -1,6 +1,7 @@
 package com.example.scvet.api.controller;
 
 
+import com.example.scvet.api.dto.AnimalDTO;
 import com.example.scvet.api.dto.ConsultaDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.*;
@@ -47,12 +48,25 @@ public class ConsultaController {
         try {
             Consulta consulta = converter(dto);
             consulta = service.salvar(consulta);
+            return new ResponseEntity(consulta, HttpStatus.CREATED);
 
-            //Mudei para nao entrar em loop
-            //return new ResponseEntity(consulta, HttpStatus.CREATED);
 
-            return new ResponseEntity(get(consulta.getIdConsulta()), HttpStatus.CREATED);
         }catch (RegraNegocioException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, ConsultaDTO dto) {
+        if (!service.getConsultaById(id).isPresent()) {
+            return new ResponseEntity("Consulta não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Consulta consulta = converter(dto);
+            consulta.setIdConsulta(id);
+            service.salvar(consulta);
+            return ResponseEntity.ok(consulta);
+        } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -17,20 +17,15 @@ public class ConsultaDTO {
     private String horaIniciada;
     private String horaFinalizada;
     private String diagnostico;
-
     private Long idMedico;
-//    private String nomeMedico;
     private Long idAnimal;
-//    private String nomeAnimal;
 
     public static ConsultaDTO create(Consulta consulta){
 
         ModelMapper modelMapper = new ModelMapper();
         ConsultaDTO dto =  modelMapper.map(consulta, ConsultaDTO.class);
         assert dto.getIdMedico().equals(consulta.getMedico().getIdFuncionario());
-//        assert dto.getNomeMedico().equals(consulta.getMedico().getNome());
         assert dto.getIdAnimal().equals(consulta.getAnimal().getIdAnimal());
-//        assert dto.getNomeAnimal().equals(consulta.getAnimal().getNome());
 
         return dto;
 

@@ -1,6 +1,7 @@
 package com.example.scvet.service;
 
 import com.example.scvet.exception.RegraNegocioException;
+import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Consulta;
 import com.example.scvet.model.repository.ConsultaRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class ConsultaService {
         return repository.findById(id);
     }
 
+    public List<Consulta> getConsultaByAnimal(Optional<Animal> animal) {
+        return repository.findByAnimal(animal);
+    }
     @Transactional
     public Consulta salvar(Consulta consulta) {
         validar(consulta);

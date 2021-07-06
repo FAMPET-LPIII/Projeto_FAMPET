@@ -28,10 +28,4 @@ public class Animal {
     @ManyToOne
     private Cliente cliente;
 
-    @OneToMany (mappedBy = "animal")
-    private List<Consulta> consultas;
-<<<<<<< HEAD
-
-=======
->>>>>>> 10e1cb45ed5f4bb2192b234f710d27dc964c42b9
 }

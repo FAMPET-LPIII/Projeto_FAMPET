@@ -1,9 +1,9 @@
 package com.example.scvet.api.controller;
 
-import com.example.scvet.api.dto.AnimalDTO;
+import com.example.scvet.api.dto.ConsultaDTO;
 import com.example.scvet.api.dto.EspecieDTO;
 import com.example.scvet.exception.RegraNegocioException;
-import com.example.scvet.model.entity.Animal;
+import com.example.scvet.model.entity.Consulta;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.service.EspecieService;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +43,24 @@ public class EspecieController {
         try {
             Especie especie = converter(dto);
             especie = service.salvar(especie);
-            //Não mudei só tem 2 atributos
             return new ResponseEntity(especie, HttpStatus.CREATED);
 
         }catch (RegraNegocioException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, EspecieDTO dto) {
+        if (!service.getEspecieById(id).isPresent()) {
+            return new ResponseEntity("Especie não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Especie especie = converter(dto);
+            especie.setIdEspecie(id);
+            service.salvar(especie);
+            return ResponseEntity.ok(especie);
+        } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
