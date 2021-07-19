@@ -3,6 +3,7 @@ package com.example.scvet.api.controller;
 import com.example.scvet.api.dto.*;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Cliente;
+import com.example.scvet.model.entity.Funcionario;
 import com.example.scvet.service.ClienteService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -55,6 +56,21 @@ public class ClienteController {
             cliente = service.salvar(cliente);
             return new ResponseEntity(cliente, HttpStatus.CREATED);
         } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, ClienteDTO dto){
+        if(!service.getClienteById(id).isPresent()){
+            return new ResponseEntity("Cliente não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Cliente cliente = converter(dto);
+            cliente.setIdCliente(id);
+            service.salvar(cliente);
+            return ResponseEntity.ok(cliente);
+        }catch (RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

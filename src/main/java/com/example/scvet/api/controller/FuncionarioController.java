@@ -52,6 +52,21 @@ public class FuncionarioController {
         }
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity atualizar(@PathVariable("id") Long id, FuncionarioDTO dto){
+        if(!service.getFuncionarioById(id).isPresent()){
+            return new ResponseEntity("Funcionario não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Funcionario funcionario = converter(dto);
+            funcionario.setIdFuncionario(id);
+            service.salvar(funcionario);
+            return ResponseEntity.ok(funcionario);
+        }catch (RegraNegocioException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     public Funcionario converter(FuncionarioDTO dto){
         ModelMapper modelMapper = new ModelMapper();
         Funcionario funcionario= modelMapper.map(dto, Funcionario.class);
