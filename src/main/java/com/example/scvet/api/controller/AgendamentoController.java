@@ -1,9 +1,11 @@
 package com.example.scvet.api.controller;
 
 import com.example.scvet.api.dto.AgendamentoDTO;
+import com.example.scvet.api.dto.FuncaoDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Agendamento;
 import com.example.scvet.model.entity.Cliente;
+import com.example.scvet.model.entity.Funcao;
 import com.example.scvet.model.entity.Funcionario;
 import com.example.scvet.service.AgendamentoService;
 import com.example.scvet.service.ClienteService;
@@ -76,5 +78,20 @@ public class AgendamentoController {
             }
         }
         return agendamento;
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, AgendamentoDTO dto) {
+        if (!service.getAgendamentoById(id).isPresent()) {
+            return new ResponseEntity("Agendamento não encontrado.", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Agendamento agendamento = converter(dto);
+            agendamento.setIdAgendamento(id);
+            service.salvar(agendamento);
+            return ResponseEntity.ok(agendamento);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

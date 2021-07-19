@@ -54,4 +54,19 @@ public class FuncaoController {
         Funcao funcao = modelMapper.map(dto, Funcao.class);
         return funcao;
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, FuncaoDTO dto) {
+        if (!service.getFuncaoById(id).isPresent()) {
+            return new ResponseEntity("Função não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Funcao funcao = converter(dto);
+            funcao.setIdFuncao(id);
+            service.salvar(funcao);
+            return ResponseEntity.ok(funcao);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

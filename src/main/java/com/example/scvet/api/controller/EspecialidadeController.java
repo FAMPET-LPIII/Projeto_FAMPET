@@ -1,8 +1,10 @@
 package com.example.scvet.api.controller;
 
 import com.example.scvet.api.dto.EspecialidadeDTO;
+import com.example.scvet.api.dto.FuncaoDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Especialidade;
+import com.example.scvet.model.entity.Funcao;
 import com.example.scvet.service.EspecialidadeService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -51,5 +53,20 @@ public class EspecialidadeController {
         ModelMapper modelMapper = new ModelMapper();
         Especialidade especialidade = modelMapper.map(dto, Especialidade.class);
         return especialidade;
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, EspecialidadeDTO dto) {
+        if (!service.getEspecialidadeById(id).isPresent()) {
+            return new ResponseEntity("Especialidade não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            Especialidade especialidade = converter(dto);
+            especialidade.setIdEspecialidade(id);
+            service.salvar(especialidade);
+            return ResponseEntity.ok(especialidade);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
