@@ -33,8 +33,6 @@ public class AnimalService {
     }
     @Transactional
     public void excluir(Animal animal) {
-        animal.setEspecie(null);
-        animal.setCliente(null);
         repository.delete(animal);
     }
 
