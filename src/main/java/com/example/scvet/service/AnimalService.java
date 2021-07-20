@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class AnimalService {
 
@@ -31,6 +30,12 @@ public class AnimalService {
     public Animal salvar(Animal animal){
         validar(animal);
         return repository.save(animal);
+    }
+    @Transactional
+    public void excluir(Animal animal) {
+        animal.setEspecie(null);
+        animal.setCliente(null);
+        repository.delete(animal);
     }
 
     public void validar(Animal animal){

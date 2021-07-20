@@ -30,15 +30,15 @@ public class EspecieService {
         validar(especie);
         return repository.save(especie);
     }
-
+    @Transactional
+    public void excluir(Especie especie) {
+        repository.delete(especie);
+    }
     public void validar(Especie especie){
         if (especie.getNomeEspecie() == null || especie.getNomeEspecie().trim().equals("")){
             throw new RegraNegocioException("Nome de especie invalido");
         }
 
     }
-
-
-
 
 }

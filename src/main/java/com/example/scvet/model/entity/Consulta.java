@@ -11,8 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
-
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

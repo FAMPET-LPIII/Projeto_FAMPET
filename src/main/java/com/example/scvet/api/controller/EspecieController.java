@@ -62,6 +62,19 @@ public class EspecieController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Especie> especie = service.getEspecieById(id);
+        if (!especie.isPresent()) {
+            return new ResponseEntity("Especie não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(especie.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     public Especie converter(EspecieDTO dto){
         ModelMapper modelMapper = new ModelMapper();

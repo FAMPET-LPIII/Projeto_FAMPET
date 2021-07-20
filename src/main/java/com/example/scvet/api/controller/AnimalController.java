@@ -5,7 +5,6 @@ import com.example.scvet.api.dto.ConsultaDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Cliente;
-import com.example.scvet.model.entity.Consulta;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.service.AnimalService;
 import com.example.scvet.service.ClienteService;
@@ -53,10 +52,7 @@ public class AnimalController {
         if(!animal.isPresent()){
             return new ResponseEntity("Animal não encontrado", HttpStatus.NOT_FOUND);
         }
-        List<Consulta> consultas = consultaService.getConsultaByAnimal(animal);
-        return ResponseEntity.ok(consultas.stream().map(ConsultaDTO::create).collect(Collectors.toList()));
-
-
+        return ResponseEntity.ok(animal.get().getConsultas().stream().map(ConsultaDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()
@@ -86,6 +82,20 @@ public class AnimalController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Animal> animal = service.getAnimalById(id);
+        if (!animal.isPresent()) {
+            return new ResponseEntity("Animal não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(animal.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     public Animal converter(AnimalDTO dto){
         ModelMapper modelMapper = new ModelMapper();
         Animal animal = modelMapper.map(dto, Animal.class);

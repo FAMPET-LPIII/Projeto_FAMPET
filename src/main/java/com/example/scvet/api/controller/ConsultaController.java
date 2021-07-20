@@ -69,6 +69,20 @@ public class ConsultaController {
         }
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Consulta> consulta = service.getConsultaById(id);
+        if (!consulta.isPresent()) {
+            return new ResponseEntity("Consulta não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(consulta.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     public Consulta converter(ConsultaDTO dto){
         ModelMapper modelMapper = new ModelMapper();
         Consulta consulta= modelMapper.map(dto, Consulta.class);

@@ -27,7 +27,6 @@ public class AnimalDTO {
         assert dto.getIdCliente().equals(animal.getCliente().getIdCliente());
         assert dto.getIdEspecie().equals(animal.getEspecie().getIdEspecie());
         return dto;
-
     }
 
 }

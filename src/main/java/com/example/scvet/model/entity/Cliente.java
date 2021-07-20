@@ -1,5 +1,6 @@
 package com.example.scvet.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class Cliente extends Pessoa{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
-
+    @JsonIgnore
     @OneToMany (mappedBy = "cliente")
     private List<Animal> animais;
 }

@@ -28,9 +28,6 @@ public class ConsultaDTO {
         assert dto.getIdAnimal().equals(consulta.getAnimal().getIdAnimal());
 
         return dto;
-
-
-
     }
 
 }

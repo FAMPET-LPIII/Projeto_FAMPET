@@ -1,5 +1,6 @@
 package com.example.scvet.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,8 @@ public class Animal {
 
     @ManyToOne
     private Cliente cliente;
+    @JsonIgnore
+    @OneToMany (mappedBy = "animal", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
 
 }
