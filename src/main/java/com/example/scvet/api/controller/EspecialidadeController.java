@@ -69,4 +69,19 @@ public class EspecialidadeController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Especialidade> especialidade = service.getEspecialidadeById(id);
+        if (!especialidade.isPresent()) {
+            return new ResponseEntity("Especialidade não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(especialidade.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

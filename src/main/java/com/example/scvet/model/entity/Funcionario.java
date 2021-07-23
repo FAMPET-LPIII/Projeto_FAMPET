@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,4 +22,6 @@ public class Funcionario extends Pessoa{
     private Especialidade especialidade;
     @ManyToOne
     private Funcao funcao;
+    @OneToMany (mappedBy = "funcionario")
+    private List<Agendamento> agendamentos;
 }

@@ -42,4 +42,8 @@ public class FuncaoService {
             throw new RegraNegocioException("Descrição de função inválida.");
         }
     }
+
+    public void excluir(Funcao funcao) {
+        repository.delete(funcao);
+    }
 }

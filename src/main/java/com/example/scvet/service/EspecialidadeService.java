@@ -2,6 +2,7 @@ package com.example.scvet.service;
 
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.Especialidade;
+import com.example.scvet.model.entity.Funcao;
 import com.example.scvet.model.repository.EspecialidadeRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,9 @@ public class EspecialidadeService {
         if (especialidade.getDescricao() == null || especialidade.getDescricao().trim().equals("")){
             throw new RegraNegocioException("Descrição de especialidade inválida.");
         }
+    }
+
+    public void excluir(Especialidade especialidade) {
+        repository.delete(especialidade);
     }
 }

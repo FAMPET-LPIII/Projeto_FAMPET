@@ -32,6 +32,11 @@ public class AgendamentoService {
         return  repository.save(agendamento);
     }
 
+    @Transactional
+    public void excluir(Agendamento agendamento) {
+        repository.delete(agendamento);
+    }
+
     public void validar (Agendamento agendamento){
         if (agendamento.getData() == null || agendamento.getData().trim().equals("")){
             throw new RegraNegocioException("Data Inválida.");

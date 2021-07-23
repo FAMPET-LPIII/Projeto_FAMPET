@@ -94,4 +94,19 @@ public class AgendamentoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Agendamento> agendamento = service.getAgendamentoById(id);
+        if (!agendamento.isPresent()) {
+            return new ResponseEntity("Agendamento não encontrada", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(agendamento.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
