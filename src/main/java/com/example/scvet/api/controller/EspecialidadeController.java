@@ -43,7 +43,7 @@ public class EspecialidadeController {
         try {
             Especialidade especialidade = converter(dto);
             especialidade = service.salvar(especialidade);
-            return new ResponseEntity(get(especialidade.getIdEspecialidade()), HttpStatus.CREATED);
+            return new ResponseEntity(especialidade, HttpStatus.CREATED);
         }catch(RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

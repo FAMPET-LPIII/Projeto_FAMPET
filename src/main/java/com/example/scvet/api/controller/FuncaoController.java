@@ -43,7 +43,7 @@ public class FuncaoController {
         try {
             Funcao funcao = converter(dto);
             funcao = service.salvar(funcao);
-            return new ResponseEntity(get(funcao.getIdFuncao()), HttpStatus.CREATED);
+            return new ResponseEntity(funcao, HttpStatus.CREATED);
         }catch(RegraNegocioException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
