@@ -47,12 +47,12 @@ public class AgendamentoService {
         if (agendamento.getSituacao() == null || agendamento.getSituacao().trim().equals("")){
             throw new RegraNegocioException("Situação Inválida");
         }
-//        if (agendamento.getFuncionario() == null || agendamento.getFuncionario().getIdFuncionario() == null || agendamento.getFuncionario().getIdFuncionario() == 0){
-//            throw new RegraNegocioException("Funcionario Inválido.");
-//        }
-//        if (agendamento.getCliente() == null || agendamento.getCliente().getIdCliente() == null || agendamento.getCliente().getIdCliente() == 0){
-//            throw new RegraNegocioException("Cliente Inválido.");
-//        }
+        if (agendamento.getFuncionario() == null || agendamento.getFuncionario().getIdFuncionario() == null || agendamento.getFuncionario().getIdFuncionario() == 0){
+            throw new RegraNegocioException("Funcionario Inválido.");
+        }
+        if (agendamento.getCliente() == null || agendamento.getCliente().getIdCliente() == null || agendamento.getCliente().getIdCliente() == 0){
+            throw new RegraNegocioException("Cliente Inválido.");
+        }
     }
 
 }
