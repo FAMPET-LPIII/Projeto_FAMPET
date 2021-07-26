@@ -1,5 +1,6 @@
 package com.example.scvet.api.controller;
 
+import com.example.scvet.api.dto.AgendamentoDTO;
 import com.example.scvet.api.dto.FuncionarioDTO;
 import com.example.scvet.exception.RegraNegocioException;
 import com.example.scvet.model.entity.*;
@@ -42,6 +43,16 @@ public class FuncionarioController {
 
         return ResponseEntity.ok(funcionario.map(FuncionarioDTO::create));
     }
+
+    @GetMapping("/{id}/agendamentos")
+    public ResponseEntity getAgendamentos(@PathVariable long id) {
+        Optional<Funcionario> funcionario = service.getFuncionarioById(id);
+        if (!funcionario.isPresent()) {
+            return new ResponseEntity("Funcionario não encontrado.", HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(funcionario.get().getAgendamentos().stream().map(AgendamentoDTO::create).collect(Collectors.toList()));
+    }
+
     @PostMapping()
     public ResponseEntity post(FuncionarioDTO dto){
         try {
