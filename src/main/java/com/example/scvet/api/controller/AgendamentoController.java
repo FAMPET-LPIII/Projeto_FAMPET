@@ -46,7 +46,7 @@ public class AgendamentoController {
     }
 
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity post(AgendamentoDTO dto){
         try {
             Agendamento agendamento = converter(dto);
