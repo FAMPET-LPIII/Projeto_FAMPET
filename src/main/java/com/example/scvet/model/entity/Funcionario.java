@@ -24,6 +24,7 @@ public class Funcionario extends Pessoa{
     @ManyToOne
     private Funcao funcao;
 
+    @JsonIgnore
     @OneToMany (mappedBy = "funcionario")
     private List<Agendamento> agendamentos;
 }

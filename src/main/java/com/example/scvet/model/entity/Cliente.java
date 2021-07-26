@@ -21,6 +21,7 @@ public class Cliente extends Pessoa{
     @OneToMany (mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Animal> animais;
 
+    @JsonIgnore
     @OneToMany (mappedBy = "cliente")
     private List<Agendamento> agendamentos;
 }
