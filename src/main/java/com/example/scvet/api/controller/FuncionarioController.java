@@ -23,6 +23,7 @@ public class FuncionarioController {
     private final FuncionarioService service;
     private final EspecialidadeService especialidadeService;
     private final FuncaoService funcaoService;
+    private final AgendamentoService serviceAgendamento;
 
 
     @GetMapping()
@@ -67,9 +68,27 @@ public class FuncionarioController {
         }
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity excluir(@PathVariable("id") Long id) {
+        Optional<Funcionario> funcionario = service.getFuncionarioById(id);
+        if (!funcionario.isPresent()) {
+            return new ResponseEntity("Funcionario não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            for(Agendamento agendamento: funcionario.get().getAgendamentos()){
+                agendamento.setFuncionario(null);
+                serviceAgendamento.salvar(agendamento);
+            }
+            service.excluir(funcionario.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     public Funcionario converter(FuncionarioDTO dto){
         ModelMapper modelMapper = new ModelMapper();
-        Funcionario funcionario= modelMapper.map(dto, Funcionario.class);
+        Funcionario funcionario = modelMapper.map(dto, Funcionario.class);
         if (dto.getIdEspecialidade() != null){
             Optional<Especialidade> especialidade = especialidadeService.getEspecialidadeById(dto.getIdEspecialidade());
             if(!especialidade.isPresent()){

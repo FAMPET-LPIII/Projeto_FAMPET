@@ -4,6 +4,7 @@ package com.example.scvet.service;
 import com.example.scvet.api.dto.AnimalDTO;
 import com.example.scvet.api.dto.ClienteDTO;
 import com.example.scvet.exception.RegraNegocioException;
+import com.example.scvet.model.entity.Agendamento;
 import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Cliente;
 import com.example.scvet.model.entity.Especie;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private ClienteRepository repository;
+
+    private AgendamentoService agendamentoService;
 
     public ClienteService(ClienteRepository repository){ this.repository = repository; }
 
@@ -35,6 +39,15 @@ public class ClienteService {
         return repository.save(cliente);
     }
 
+    @Transactional
+    public void excluir(Cliente cliente) {
+        Objects.requireNonNull(cliente.getIdCliente());
+        for(Agendamento agendamento: cliente.getAgendamentos()){
+            agendamento.setCliente(null);
+//           agendamentoService.salvar(agendamento);
+        }
+        repository.delete(cliente); }
+
     public void validar(Cliente cliente){
         if (cliente.getNome() == null || cliente.getNome().trim().equals("")){
             throw new RegraNegocioException("Nome de cliente invalido");
@@ -47,9 +60,6 @@ public class ClienteService {
         }
         if (cliente.getNumero()== null || cliente.getNumero().trim().equals("")){
             throw new RegraNegocioException("Numero de cliente invalido");
-        }
-        if (cliente.getComplemento()== null || cliente.getComplemento().trim().equals("")){
-            throw new RegraNegocioException("Complemento de cliente invalido");
         }
         if (cliente.getBairro()== null || cliente.getBairro().trim().equals("")){
             throw new RegraNegocioException("Bairro de cliente invalido");

@@ -18,7 +18,7 @@ public class Cliente extends Pessoa{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
     @JsonIgnore
-    @OneToMany (mappedBy = "cliente")
+    @OneToMany (mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Animal> animais;
 
     @OneToMany (mappedBy = "cliente")

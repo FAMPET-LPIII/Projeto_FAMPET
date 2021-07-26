@@ -2,6 +2,8 @@ package com.example.scvet.service;
 
 import com.example.scvet.api.dto.FuncionarioDTO;
 import com.example.scvet.exception.RegraNegocioException;
+import com.example.scvet.model.entity.Agendamento;
+import com.example.scvet.model.entity.Animal;
 import com.example.scvet.model.entity.Especie;
 import com.example.scvet.model.entity.Funcionario;
 import com.example.scvet.model.repository.FuncionarioRepository;
@@ -32,6 +34,14 @@ public class FuncionarioService {
     public Funcionario salvar(Funcionario funcionario){
         validar(funcionario);
         return repository.save(funcionario);
+    }
+    @Transactional
+    public void excluir(Funcionario funcionario) {
+        for(Agendamento agendamento: funcionario.getAgendamentos()){
+            agendamento.setFuncionario(null);
+//           agendamentoService.salvar(agendamento);
+        }
+        repository.delete(funcionario);
     }
 
     public void validar(Funcionario funcionario){

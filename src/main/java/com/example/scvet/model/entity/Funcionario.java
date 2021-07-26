@@ -1,5 +1,6 @@
 package com.example.scvet.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Funcionario extends Pessoa{
     private Especialidade especialidade;
     @ManyToOne
     private Funcao funcao;
+
     @OneToMany (mappedBy = "funcionario")
     private List<Agendamento> agendamentos;
 }
